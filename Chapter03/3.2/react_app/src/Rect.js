@@ -22,7 +22,8 @@ constructor(props){
     left:this.x + "px",
     top:this.y + "px",
     width:this.width + "px",
-    height:this.radius + "px",
+    height:this.height + "px",
+    borderRadius:this.radius + "px"
   }
 }
 
@@ -30,3 +31,5 @@ render(){
     return <div style={this.style}></div>
   }
 }
+
+export default Rect
