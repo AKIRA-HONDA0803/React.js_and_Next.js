@@ -5,23 +5,40 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      msg:'Hello',
-      count:0,
+      counter:0,
+      msg:'count start!',
+      flg:true,
     }
-    let timer = setInterval(()=>{
-      this.setState({
-        count: this.state.count + 1,
-        msg: "[ count: " + this.state.count + " ]"
-      })
-    }, 1000)
+    this.doAction = this.doAction.bind(this)
   }
+
+  doAction(e){
+    this.setState({
+      counter: this.state.counter + 1,
+      msg: this.state.counter,
+      flg: !this.state.flg
+    })
+  }
+
   render(){
     return <div>
       <h1 className="bg-primary text-white display-4">React</h1>
       <div className="container">
-        <p className="subtitle">Show message.</p>
-        <p className="alert alert-warning">{this.state.msg}</p>
-        <p className="alert alert-dark">{this.props.msg}</p>
+        <p className="subtitle">Count number</p>
+        {this.state.flg ?
+          <div className="alert alert-primary text-right">
+            <p className="h5">count: {this.state.msg}</p>
+          </div>
+        :
+          <div className="alert alert-warning text-left">
+            <p className="h5">{this.state.msg}です。</p>
+          </div>
+        }
+        <div className="text-center">
+          <button className="btn btn-primary"
+            onClick={this.doAction}>
+            Click</button>
+        </div>
       </div>
     </div>
   }
