@@ -11,19 +11,19 @@ function App() {
   const [val, setVal] = useState(1000)
   const [tax1, setTax1] = useState(0)
   const [tax2, setTax2] = useState(0)
-  const [msg, setMsg] = useState(<p>set a number...</p>)
+  const [msg, setMsg] = useState(<p>set a price...</p>)
 
   const doChange = (event)=> {
     setVal(event.target.value)
   }
-
-  const doAction = () => {
+  // react_devtools_backend.js:4026 Warning: Maximum update depth exceeded.が無限に増える
+  useEffect(() => {
     let res = <div>
       <p>軽減税率(8%) : {tax1} 円</p>
       <p>通常税率(10%) : {tax2} 円</p>
     </div>
     setMsg(res)
-  }
+  })
 
   useEffect(() => {
     setTax1(Math.floor(val * 1.08))
@@ -44,8 +44,6 @@ function App() {
           <input type="number" className="form-control"
             onChange={doChange} />
         </div>
-        <button className="btn btn-primary"
-          onClick={doAction}>Calc</button>
       </div>
     </div>
   )
