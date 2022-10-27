@@ -4,8 +4,9 @@ import './App.css';
 const useTax = (t1, t2)=> {
   const [price, setPrice] = useState(1000)
   const [tx1] = useState(t1)
-  const [tx2] = useState(2)
+  const [tx2] = useState(t2)
 
+  // taxとreducedは関数で埋め込み
   const tax = ()=> {
     return Math.floor(price * (1.0 + tx1 / 100))
   }
