@@ -15,7 +15,7 @@ function Memo(props) {
       data = memo.map((value, key)=>(
         <Item key={value.message} value={value} index={key + 1} />
       ))
-      setMode('default')
+      setMode('deafult')
       break
     case 'find':
       data = fmemo.map((value, key)=>(
