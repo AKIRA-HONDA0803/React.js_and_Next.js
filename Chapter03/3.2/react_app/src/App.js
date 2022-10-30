@@ -1,72 +1,55 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class App extends Component {
-  data = [
-    "This is list sample.",
-    "これはリストのサンプルです。",
-    "配列をリストに変換します。"
-  ]
+let data = {title:'React-Context',
+  message:'this is sample message.'}
 
-  constructor(props){
-    super(props)
-    this.state = {
-      list:this.data
-    }
-  }
+const SampleContext = React.createContext(data)
+
+class App extends Component {
+  // Providerで一時的にコンテキストの値を変更する
+  newdata = {title:'新しいタイトル',
+    message:'これは新しいメッセージです。'}
 
   render(){
     return <div>
       <h1 className="bg-primary text-white display-4">React</h1>
       <div className="container">
-        <p className="subtitle">Show List.</p>
-        <List title="サンプル・リスト" data={this.data} />
+      <Title />
+        <Message />
+        <hr />
+        <SampleContext.Provider value={this.newdata}>
+          <Title />
+          <Message />
+        </SampleContext.Provider>
+        <hr />
+        <Title />
+        <Message />
       </div>
     </div>
   }
 }
 
-class List extends Component {
-  number = 1
+class Title extends Component {
+  static contextType = SampleContext
 
   render(){
-    let data = this.props.data;
     return (
-      <div>
-        <p className="h5 text-center">{this.props.title}</p>
-        <ul className="list-group">
-          {data.map((item, key) =>
-            <li className="list-group-item" key={key}>
-              <Item number={key + 1} value={item} />
-            </li>
-          )}
-        </ul>
+      <div className="card p-2 my-3">
+        <h2>{this.context.title}</h2>
       </div>
     )
   }
 }
 
-class Item extends Component {
-  itm = {
-    fontSize:"16pt",
-    color:"#00f",
-    textDecoration: 'underline',
-    textDecorationColor: '#ddf'
-  }
-
-  num = {
-    fontWeight:"bold",
-    color:"red"
-  }
+class Message extends Component {
+  static contextType = SampleContext
 
   render(){
     return (
-      <p style={this.itm}>
-        <span style={this.num}>
-          [{this.props.number}]&nbsp;
-        </span>
-        {this.props.value}
-      </p>
+      <div className="alert alert-primary">
+        <p>{this.context.message}</p>
+      </div>
     )
   }
 }
