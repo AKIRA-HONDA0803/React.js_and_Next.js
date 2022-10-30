@@ -1,4 +1,4 @@
-import usePersist from "../persist";
+import usePersist from "../Persist";
 import Memo from './Memo';
 import AddForm from './AddForm';
 import FindForm from './FindForm';
@@ -20,3 +20,5 @@ function MemoPage() {
     </div>
   )
 }
+
+export default MemoPage

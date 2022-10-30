@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import usePersist from '../persist'
+import usePersist from '../Persist'
 
 function AddForm (props) {
   const [memo, setMemo] = usePersist("memo", [])
