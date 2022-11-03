@@ -11,9 +11,10 @@ export default function Home() {
   // fetch(url)
   //   .then(res=> res.json())
   //   .then(res=> setData(res))
-  // const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const fetcher = url => fetch(url).then(r => r.json())
-  const { data } = useSWR('/data.json', fetcher)
+  const func = (...args) => fetch(...args).then(res => res.text())
+  // const fetcher = url => fetch(url).then(r => r.json())
+  // const { data } = useSWR('/data.json', fetcher)
+  const { data, err } = useSWR('/data.txt', func)
 
   return (
     <div>
@@ -21,7 +22,8 @@ export default function Home() {
       <div className="alert alert-primary text-center">
         <h5 className="mb-4">
           {/* {data.message} */}
-          {data != undefined ? data.message : 'error...' }
+          {/* {data != undefined ? data.message : 'error...' } */}
+          { data }
           </h5>
         <table className="table bg-white">
           <thead className="table-dark">
@@ -29,13 +31,13 @@ export default function Home() {
           </thead>
           <tbody>
             {/* {data.data.map((value, key)=> ( */}
-            {data != undefined ? data.data.map((value, key)=> (
-              <tr key={key}>
+            {/* {data != undefined ? data.data.map((value, key)=> ( */}
+              {/* <tr key={key}>
                 <th>{value.name}</th>
                 <td>{value.mail}</td>
                 <td>{value.age}</td>
-              </tr>
-            )) : <tr><th></th><td>no data.</td><td></td></tr>}
+              </tr> */}
+            {/* )) : <tr><th></th><td>no data.</td><td></td></tr>} */}
           </tbody>
         </table>
         {/* <MyImage fname="image.jpg" size="300" />
