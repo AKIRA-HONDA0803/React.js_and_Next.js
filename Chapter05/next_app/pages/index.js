@@ -15,12 +15,22 @@ export default function Home() {
   const fetcher = url => fetch(url).then(r => r.json())
   // const { data } = useSWR('/data.json', fetcher)
   // const { data, err } = useSWR('/data.txt', func)
-  const [ address, setAddress] = useState('/api/hello')
+  // const [ address, setAddress] = useState('/api/hello')
+  const [pref, setPref] = useState({id:0, item:'name'})
+  const [ address, setAddress ] = useState('/api/hello/' + pref.id + '/' + pref.item)
   const { data, err } = useSWR(address, fetcher)
 
   const onChange = (e)=> {
     // setAddress('/api/hello?id=' + e.target.value)
-    setAddress('/api/hello/' + e.target.value)
+    pref.id = e.target.value
+    setPref(pref)
+    // setAddress('/api/hello/' + e.target.value)
+    setAddress('/api/hello/' + pref.id + '/' + pref.item)
+  }
+  const onSelect = (e)=> {
+    pref.item = e.target.value
+    setPref(pref)
+    setAddress(`/api/hello/` + pref.id + '/' + pref.item)
   }
 
   return (
@@ -33,8 +43,14 @@ export default function Home() {
           {/* { data } */}
           { JSON.stringify(data) }
           </h5>
-          <input type="number" className="form-control"
+          <input type="number" className="form-control form-control-sm mb-2"
             onChange={onChange} />
+          <select onChange={onSelect}
+            className="form-control form-control-sm">
+            <option value="name">Name</option>
+            <option value="mail">Mail</option>
+            <option value="age">Age</option>
+          </select>
         {/* <table className="table bg-white">
           <thead className="table-dark">
             <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
