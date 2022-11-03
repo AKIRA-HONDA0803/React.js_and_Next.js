@@ -11,7 +11,8 @@ export default function Home() {
   // fetch(url)
   //   .then(res=> res.json())
   //   .then(res=> setData(res))
-  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  // const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const fetcher = url => fetch(url).then(r => r.json())
   const { data } = useSWR('/data.json', fetcher)
 
   return (
