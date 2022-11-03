@@ -11,10 +11,16 @@ export default function Home() {
   // fetch(url)
   //   .then(res=> res.json())
   //   .then(res=> setData(res))
-  const func = (...args) => fetch(...args).then(res => res.text())
-  // const fetcher = url => fetch(url).then(r => r.json())
+  // const func = (...args) => fetch(...args).then(res => res.text())
+  const fetcher = url => fetch(url).then(r => r.json())
   // const { data } = useSWR('/data.json', fetcher)
-  const { data, err } = useSWR('/data.txt', func)
+  // const { data, err } = useSWR('/data.txt', func)
+  const [ address, setAddress] = useState('/api/hello')
+  const { data, err } = useSWR(address, fetcher)
+
+  const onChange = (e)=> {
+    setAddress('/api/hello?id=' + e.target.value)
+  }
 
   return (
     <div>
@@ -23,13 +29,16 @@ export default function Home() {
         <h5 className="mb-4">
           {/* {data.message} */}
           {/* {data != undefined ? data.message : 'error...' } */}
-          { data }
+          {/* { data } */}
+          { JSON.stringify(data) }
           </h5>
-        <table className="table bg-white">
+          <input type="number" className="form-control"
+            onChange={onChange} />
+        {/* <table className="table bg-white">
           <thead className="table-dark">
             <tr><th>Name</th><th>Mail</th><th>Age</th></tr>
           </thead>
-          <tbody>
+          <tbody> */}
             {/* {data.data.map((value, key)=> ( */}
             {/* {data != undefined ? data.data.map((value, key)=> ( */}
               {/* <tr key={key}>
@@ -38,8 +47,8 @@ export default function Home() {
                 <td>{value.age}</td>
               </tr> */}
             {/* )) : <tr><th></th><td>no data.</td><td></td></tr>} */}
-          </tbody>
-        </table>
+          {/* </tbody>
+        </table> */}
         {/* <MyImage fname="image.jpg" size="300" />
         <Link legacyBehavior href="/other">
           <button className="btn btn-primary">
