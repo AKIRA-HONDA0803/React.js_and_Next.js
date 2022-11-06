@@ -7,6 +7,7 @@ export default function Calc(props) {
   const [data, setData] = usePersist('calc-history', [])
   const [func, setFunc] = useState({func:{}})
 
+  // fetch関数で引数のアドレスにアクセスし、res.jsonでJSONデータをオブジェクトに変換する
   const fetchFunc = (address)=>
     fetch(address).then(res => res.json())
 
@@ -43,8 +44,9 @@ export default function Calc(props) {
   // 関数ボタンの処理
   const doFunc = (e)=> {
     const arr = input.split(',')
-    const fid = e.target.fid
+    const fid = e.target.id
     const f = func.func[fid]
+    console.log(func)
     const fe = eval(f.function)
     const res = fe(arr)
     setMessage(res)
